@@ -1,7 +1,7 @@
 <?php
 error_reporting(0);
 $ciphering = "AES-256-CTR";
-$encryption_iv = "0123456789";
+$encryption_iv = "01234567891234343345673452";
 $encryption_key = "prostocode";
 $matchname = $_GET['matchname'];
 $id = $_GET['id'];
@@ -14,7 +14,7 @@ if(file_exists("matches/{$matchname}.txt")){
 		return;
 	}
 	$players = $arraymatch['players'];
-	if(array_search($id, explode(';', openssl_decrypt($players, $ciphering, $encryption_key, 0, $encryption_iv))) == 0){
+	if(openssl_decrypt(explode('|', $players)[0], $ciphering, $encryption_key, 0, $encryption_iv) == $id){
 	   if($arraymatch[$number] != ""){
 		   echo "The slot is occupied";
 	   }else{
@@ -23,7 +23,7 @@ if(file_exists("matches/{$matchname}.txt")){
 		   echo "Done";
 	   }
 	}
-	if(array_search($id, explode(';', openssl_decrypt($players, $ciphering, $encryption_key, 0, $encryption_iv))) == 1){
+	if(openssl_decrypt(explode('|', $players)[1], $ciphering, $encryption_key, 0, $encryption_iv) == $id){
 	   if($arraymatch[$number] != ""){
 		   echo "The slot is occupied";
 	   }else{
