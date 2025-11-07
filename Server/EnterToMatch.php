@@ -6,6 +6,10 @@ $encryption_key = "prostocode";
 $matchname = $_GET['matchname'];
 if(file_exists("matches/{$matchname}.txt")){
 	$content = file_get_contents("matches/{$matchname}.txt");
+	if(json_decode($content, true)['ended'] == "true"){
+		echo "Game ended";
+		return;
+	}
 	$countsplayer = json_decode($content, true)['players'];
 	if(count(explode('|', $countsplayer)) >= 2){
 		echo "The match is overcrowded";
