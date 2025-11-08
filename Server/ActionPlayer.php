@@ -16,6 +16,10 @@ if(file_exists("matches/{$matchname}.txt")){
 		echo "Game ended";
 		return;
 	}
+	if($arraymatch['started'] == "false"){
+		echo "Game not started";
+		return;
+	}
 	$queueplayer = $arraymatch['queue'];
 	if(openssl_decrypt($queueplayer, $ciphering, $encryption_key, 0, $encryption_iv) != $id){
 		echo "It's not your queue";
@@ -104,12 +108,14 @@ if(file_exists("matches/{$matchname}.txt")){
 	}
 	if($winner == "x"){
 		$arraymatchafter['ended'] = "true";
+		$arraymatchafter['started'] = "false";
 		$arraymatchafter['winner'] = openssl_decrypt(explode('|', $arraymatchafter['players'])[1], $ciphering, $encryption_key, 0, $encryption_iv);
 		file_put_contents("matches/{$matchname}.txt", json_encode($arraymatchafter));
 		return;
 	}
 	if($winner == "o"){
 		$arraymatchafter['ended'] = "true";
+		$arraymatchafter['started'] = "false";
 		$arraymatchafter['winner'] = openssl_decrypt(explode('|', $arraymatchafter['players'])[0], $ciphering, $encryption_key, 0, $encryption_iv);
 		file_put_contents("matches/{$matchname}.txt", json_encode($arraymatchafter));
 		return;
@@ -117,6 +123,7 @@ if(file_exists("matches/{$matchname}.txt")){
 	if($pos1 != "" && $pos2 != "" && $pos3 != "" && $pos4 != "" && $pos5 != "" && $pos6 != "" && $pos7 != "" && $pos8 != "" && $pos9 != ""){
 		if($winner == ""){
 			$arraymatchafter['ended'] = "true";
+			$arraymatchafter['started'] = "false";
 			file_put_contents("matches/{$matchname}.txt", json_encode($arraymatchafter));
 		}
 	}

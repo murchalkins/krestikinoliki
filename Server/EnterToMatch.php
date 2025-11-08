@@ -42,6 +42,9 @@ if(file_exists("matches/{$matchname}.txt")){
 		if(count(explode('|', $contentarray['players'])) == 1){
 		$contentarray['queue'] = openssl_encrypt($id, $ciphering, $encryption_key, 0, $encryption_iv);
 	}
+	  if(count(explode('|', $contentarray['players'])) == 2){
+		  $contentarray['started'] = "true";
+	  }
 	   file_put_contents("matches/{$matchname}.txt", json_encode($contentarray));
 		echo $id;
 	}
