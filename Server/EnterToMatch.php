@@ -19,10 +19,15 @@ if(file_exists("matches/{$matchname}.txt")){
 		$id = "";
 		$idwords = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@:";
 		$lengthid = mt_rand(6, 19);
+		while(true){
 		for($i = 0; $i < $lengthid; $i++){
            $randindex = mt_rand(0, mb_strlen($idwords));
 		   $word = $idwords[$randindex];
 		   $id .= $word;           
+		}
+		if(!in_array($id, $arrayplayers)){
+			break;
+		}
 		}
 		array_push($arrayplayers, openssl_encrypt($id, $ciphering, $encryption_key, 0, $encryption_iv));
         $tempik = "";
