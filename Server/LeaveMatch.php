@@ -31,6 +31,12 @@ if(file_exists("matches/{$matchname}.txt")){
              $tempik .= "|{$valueciphered}";
            }
         }
+        if(count(explode('|', $contentarray['players'])) == 2){
+			$contentarray['started'] = "false";
+			$contentarray['ended'] = "true";
+		}else{
+			$contentarray['queue'] = "";
+		}
 		$contentarray['players'] = $tempik;
         if(openssl_decrypt($contentarray['queue'], $ciphering, $encryption_key, 0, $encryption_iv) == $id){
             $contentarray['queue'] = $contentarray['players'];    
