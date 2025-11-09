@@ -31,7 +31,7 @@ public class Slot : MonoBehaviour
                 log.text = "Неправильная цифра";
                 break;
             case "Game ended":
-                log.text = "Матч не окончен";
+                log.text = "Матч окончен";
                 break;
             case "Game not started":
                 log.text = "Матч не запущен";
